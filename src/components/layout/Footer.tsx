@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
 
             <div className="pt-2 flex items-center gap-2 text-xs font-mono text-amber-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>HQ: Saniyana, Gazipur Road, Fatehpur (UP)</span>
+              <span>HQ: Samiyana, Gazipur Road, Fatehpur (UP)</span>
             </div>
           </div>
 
@@ -120,21 +120,24 @@ export const Footer: React.FC = () => {
           {/* Regional Contact Column */}
           <div className="space-y-4">
             <h4 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-400">
-              Address
+              ADDRESS
             </h4>
             <div className="space-y-3 text-xs text-slate-400 font-mono">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span className="leading-relaxed text-slate-300">
-                  {COMPANY_INFO.address.full}
-                </span>
+                <div className="min-w-0">
+                  <p className="mb-1 text-[10px] font-bold uppercase text-amber-400">HEAD OFFICE</p>
+                  <span className="leading-relaxed text-slate-300 uppercase">
+                    {COMPANY_INFO.address.full}
+                  </span>
+                </div>
               </div>
 
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div className="min-w-0">
-                  <p className="mb-1 text-[10px] font-bold uppercase text-amber-400">Subdivision · Manufacturing Unit</p>
-                  <p className="leading-relaxed text-slate-300">{COMPANY_INFO.subdivisionAddress.full}</p>
+                  <p className="mb-1 text-[10px] font-bold uppercase text-amber-400">SUBDIVISION</p>
+                  <p className="leading-relaxed text-slate-300 uppercase">{COMPANY_INFO.subdivisionAddress.full}</p>
                   <a href={`tel:${COMPANY_INFO.subdivisionAddress.phone.number}`} className="mt-1 inline-block text-slate-300 hover:text-amber-400 transition-colors">
                     {COMPANY_INFO.subdivisionAddress.phone.formatted}
                   </a>
@@ -144,8 +147,8 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div className="min-w-0">
-                  <p className="mb-1 text-[10px] font-bold uppercase text-amber-400">Sales Office</p>
-                  <p className="leading-relaxed text-slate-300">{COMPANY_INFO.salesOfficeAddress}</p>
+                  <p className="mb-1 text-[10px] font-bold uppercase text-amber-400">SALES OFFICE</p>
+                  <p className="leading-relaxed text-slate-300 uppercase">{COMPANY_INFO.salesOfficeAddress}</p>
                   <a href={`tel:${COMPANY_INFO.salesOfficePhone.number}`} className="mt-1 inline-block text-slate-300 hover:text-amber-400 transition-colors">
                     {COMPANY_INFO.salesOfficePhone.formatted}
                   </a>
@@ -164,11 +167,11 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2">
-                <Mail className="w-4 h-4 text-amber-400 shrink-0" />
+                <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   {COMPANY_INFO.emailAddresses.map((contact) => (
                     <a key={contact.address} href={`mailto:${contact.address}`} className="block text-slate-300 hover:text-amber-400 transition-colors">
-                      {contact.address}
+                      <span>{contact.address}</span> <span className="text-slate-500">({contact.label})</span>
                     </a>
                   ))}
                 </div>

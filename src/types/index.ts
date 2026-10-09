@@ -34,6 +34,19 @@ export interface AgricultureSolution {
   image: string;
 }
 
+export interface ImportProductItem {
+  id: string;
+  name: string;
+  category: string;
+  headline: string;
+  description: string;
+  image: string;
+  keySpecs?: { label: string; value: string }[];
+  features?: string[];
+  applications?: string[];
+  certifications?: string[];
+}
+
 export interface ImportProductCategory {
   id: string;
   category: 'Inverters' | 'Lighting' | 'Furniture' | 'Electronic Equipment';
@@ -41,6 +54,7 @@ export interface ImportProductCategory {
   tagline: string;
   description: string;
   productRange: string[];
+  products?: ImportProductItem[];
   image: string;
   iconName: string;
 }

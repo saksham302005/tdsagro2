@@ -14,8 +14,10 @@ import {
   Layers,
 } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { IMPORT_CATEGORIES } from '@/data/imports';
+import { IMPORT_CATEGORIES, getImportProductByNameOrId } from '@/data/imports';
 import { Button } from '@/components/ui/Button';
+import { ImportProductModal } from '@/components/ui/ImportProductModal';
+import { ImportProductItem } from '@/types';
 
 const FURNITURE_SUBCATEGORIES = [
   {
@@ -54,11 +56,22 @@ interface ImportsSectionProps {
 export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultation }) => {
   const [activeCategoryIdx, setActiveCategoryIdx] = useState(0);
   const [activeFurnitureIdx, setActiveFurnitureIdx] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState<ImportProductItem | null>(null);
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+
   const currentCategory = IMPORT_CATEGORIES[activeCategoryIdx];
   const currentFurnitureSubcategory = FURNITURE_SUBCATEGORIES[activeFurnitureIdx];
   const currentDisplay = currentCategory.id === 'furniture'
     ? { ...currentCategory, ...currentFurnitureSubcategory }
     : currentCategory;
+
+  const handleProductClick = (productName: string) => {
+    const product = getImportProductByNameOrId(productName);
+    if (product) {
+      setSelectedProduct(product);
+      setIsProductModalOpen(true);
+    }
+  };
 
   const getCategoryIcon = (iconName: string) => {
     switch (iconName) {
@@ -103,16 +116,14 @@ export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultati
               <button
                 key={cat.id}
                 onClick={() => setActiveCategoryIdx(idx)}
-                className={`p-4 rounded-2xl text-left transition-all duration-200 border flex items-center gap-3 ${
-                  isSelected
+                className={`p-4 rounded-2xl text-left transition-all duration-200 border flex items-center gap-3 ${isSelected
                     ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-[1.02]'
                     : 'bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
-                }`}
+                  }`}
               >
                 <div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
-                  }`}
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                    }`}
                 >
                   {getCategoryIcon(cat.iconName)}
                 </div>
@@ -140,11 +151,10 @@ export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultati
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => setActiveFurnitureIdx(idx)}
-                  className={`px-5 py-2.5 rounded-lg border text-sm font-semibold transition-colors ${
-                    isSelected
+                  className={`px-5 py-2.5 rounded-lg border text-sm font-semibold transition-colors ${isSelected
                       ? 'bg-blue-700 text-white border-blue-700'
                       : 'bg-white text-slate-700 border-slate-200 hover:border-blue-400 hover:text-blue-700'
-                  }`}
+                    }`}
                 >
                   {subcategory.label}
                 </button>
@@ -181,7 +191,6 @@ export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultati
                   </span>
                 </div>
               </div>
-
             </div>
 
             {/* Category summary */}
@@ -199,16 +208,29 @@ export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultati
               </div>
 
               <div>
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4 text-blue-600" />
-                  <span>PRODUCT CATEGORIES INCLUDED</span>
-                </h4>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+                    <Layers className="w-4 h-4 text-blue-600" />
+                    <span>PRODUCTS INCLUDED (CLICK FOR PREVIEW)</span>
+                  </h4>
+                  <span className="text-[10px] font-mono text-blue-600 font-bold uppercase hidden sm:inline">
+                    Click item to open specs
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
                   {currentDisplay.productRange.map((product) => (
-                    <div key={product} className="px-3 py-2 rounded-full bg-slate-50 border border-slate-200 text-sm text-slate-700 flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                      <span>{product}</span>
-                    </div>
+                    <button
+                      key={product}
+                      type="button"
+                      onClick={() => handleProductClick(product)}
+                      className="group px-3.5 py-2 rounded-full bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-400 text-sm text-slate-700 hover:text-blue-700 flex items-center gap-2 transition-all duration-200 shadow-sm hover:shadow active:scale-95 cursor-pointer text-left"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-blue-600 group-hover:scale-110 transition-transform shrink-0" />
+                      <span className="font-medium">{product}</span>
+                      <span className="text-[10px] font-mono text-blue-700 bg-blue-100/80 px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                        View
+                      </span>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -242,6 +264,14 @@ export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultati
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Interactive Product Details Lightbox/Modal */}
+      <ImportProductModal
+        product={selectedProduct}
+        isOpen={isProductModalOpen}
+        onClose={() => setIsProductModalOpen(false)}
+        onOpenConsultation={onOpenConsultation}
+      />
     </section>
   );
 };
