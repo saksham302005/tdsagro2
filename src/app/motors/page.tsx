@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WhatsAppFloat } from '@/components/layout/WhatsAppFloat';
@@ -28,10 +29,13 @@ export default function MotorsPage() {
       {/* Hero Header for TDS Motors Page */}
       <section className="pt-28 sm:pt-36 pb-12 sm:pb-16 bg-gradient-to-b from-rose-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="/business-solar.jpg"
             alt="TDS Motors machinery background"
-            className="w-full h-full object-cover opacity-20 filter brightness-75"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-20 filter brightness-75"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
         </div>

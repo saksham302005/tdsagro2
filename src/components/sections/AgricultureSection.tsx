@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   Sprout,
@@ -90,11 +91,12 @@ export const AgricultureSection: React.FC = () => {
             >
               {/* Image banner */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
-                  className="h-full w-full object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 

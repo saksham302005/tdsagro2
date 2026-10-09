@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Check, X, Shield, Sparkles, Cpu, Layers, Zap } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -49,11 +50,12 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onOpenConsul
             >
               {/* Card Image Background with Hover Zoom */}
               <div className="relative h-52 w-full overflow-hidden bg-slate-900">
-                <img
+                <Image
                   src={sol.imageUrl}
                   alt={sol.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-90 group-hover:opacity-100"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-90 group-hover:opacity-100"
                 />
                 {/* Gradient vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
@@ -128,10 +130,12 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onOpenConsul
               className="relative w-full max-w-2xl bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden z-10 my-8"
             >
               <div className="relative h-60 sm:h-72 bg-slate-950">
-                <img
+                <Image
                   src={selectedSolution.imageUrl}
                   alt={selectedSolution.title}
-                  className="w-full h-full object-cover opacity-85"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 672px"
+                  className="object-cover opacity-85"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
 

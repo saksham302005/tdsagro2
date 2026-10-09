@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Zap,
@@ -176,10 +177,12 @@ export const ImportsSection: React.FC<ImportsSectionProps> = ({ onOpenConsultati
             {/* Category image */}
             <div className="lg:col-span-6 space-y-4">
               <div className="relative h-72 sm:h-96 rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md">
-                <img
+                <Image
                   src={currentDisplay.image}
                   alt={currentDisplay.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 text-white">

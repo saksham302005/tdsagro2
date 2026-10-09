@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, ArrowUpRight, ShieldCheck, Zap, Layers, Sparkles } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -73,11 +74,12 @@ export const ProjectsSection: React.FC = () => {
               >
                 {/* Image Frame */}
                 <div className="relative h-56 w-full overflow-hidden bg-slate-900">
-                  <img
+                  <Image
                     src={project.imageUrl}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-90 group-hover:opacity-100"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
 

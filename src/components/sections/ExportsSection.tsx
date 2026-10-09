@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   Globe2,
@@ -80,11 +81,12 @@ export const ExportsSection: React.FC<ExportsSectionProps> = ({ onOpenConsultati
             >
               {/* Image banner */}
               <div className="relative h-48 w-full overflow-hidden bg-slate-900">
-                <img
+                <Image
                   src={prod.image}
                   alt={prod.commodity}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 

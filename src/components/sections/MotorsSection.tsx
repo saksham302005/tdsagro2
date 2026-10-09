@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Wrench,
@@ -104,11 +105,12 @@ export const MotorsSection: React.FC<MotorsSectionProps> = ({ onOpenConsultation
               >
                 {/* Image banner */}
                 <div className="relative h-52 w-full overflow-hidden bg-slate-900">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className={`w-full h-full object-cover ${item.id === 'tractor-75hp' ? 'object-top' : 'object-center'} transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100`}
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className={`object-cover ${item.id === 'tractor-75hp' ? 'object-top' : 'object-center'} transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
 

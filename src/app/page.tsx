@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowDownRight, ArrowRight, Globe2, Sprout, Sun, Wrench } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
@@ -57,10 +58,13 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.12, ease: 'easeOut' }}
             className="relative min-h-[420px] overflow-hidden sm:min-h-[560px] lg:col-span-6"
           >
-            <img
+            <Image
               src="/farmer partnersship and cooperative buyback.jpeg"
               alt="Farmer in a cultivated field with a solar-powered farmhouse in the background"
-              className="absolute inset-0 h-full w-full object-cover object-[42%_center]"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-[42%_center]"
             />
             <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-950/80 to-transparent px-6 pb-6 pt-20 text-sm font-semibold text-white sm:px-8 sm:pb-8">
               Grounded in Fatehpur. Connected to a wider world.

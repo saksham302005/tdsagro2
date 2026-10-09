@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   UserCheck,
@@ -88,10 +89,13 @@ export const DirectorsSection: React.FC = () => {
                   <div className="relative mb-6 flex items-start justify-between">
                     <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-white border-2 border-slate-200 shadow-md flex items-center justify-center group-hover:scale-105 transition-transform">
                       {photo ? (
-                        <img
+                        <Image
                           src={photo}
                           alt={director.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          sizes="96px"
+                          unoptimized={photo.startsWith('blob:')}
+                          className="object-cover"
                         />
                       ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-100 to-amber-50 text-amber-800">
